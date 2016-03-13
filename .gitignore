@@ -1,0 +1,8 @@
+*.class
+.classpath
+.project
+.settings
+
+Project\ Files
+
+commons-lang-2.6/apidocs
