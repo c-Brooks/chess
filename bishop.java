@@ -1,5 +1,5 @@
 
-public class bishop {
+public class Bishop {
 
 	static boolean[] bMovesW = new boolean[64];
 	static boolean[] bMovesB = new boolean[64];
@@ -15,29 +15,29 @@ public class bishop {
 			for (int k = 1; k >= -1; k--) {
 				if (j != 0 & k != 0) {
 					try {
-						while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) {
+						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
 							newMove = "" + r + c + (r + j * moveCount) + (c + k * moveCount) + " ";
 							bMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 
-							if (!board8x8.whoseMove) // White to move
+							if (!Board.whoseMove) // White to move
 							{
-								board8x8.makeMove(newMove);
-								if (king.kingSafeW())
+								Board.makeMove(newMove);
+								if (King.kingSafeW())
 									move = move + newMove;
-								board8x8.undoMove(newMove);
+								Board.undoMove(newMove);
 								moveCount++;
 							}
 						}
 						bMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 						if (Character
-								.isLowerCase(board8x8.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
-							oldPiece = board8x8.chessBoard[r + j * moveCount][c + k * moveCount];
+								.isLowerCase(Board.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
+							oldPiece = Board.chessBoard[r + j * moveCount][c + k * moveCount];
 							newMove = "" + r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece;
-							if (!board8x8.whoseMove) {
-								board8x8.makeMove(newMove);
-								if (king.kingSafeW())
+							if (!Board.whoseMove) {
+								Board.makeMove(newMove);
+								if (King.kingSafeW())
 									move = move + newMove;
-								board8x8.undoMove(newMove);
+								Board.undoMove(newMove);
 							}
 						}
 					} catch (Exception e) {
@@ -46,7 +46,7 @@ public class bishop {
 				}
 			}
 		}
-		bb.bMovesW = bMovesW;
+//		BB.bMovesW = bMovesW;
 		return move;
 	}
 
@@ -61,28 +61,28 @@ public class bishop {
 			for (int k = 1; k >= -1; k--) {
 				if (j != 0 & k != 0) {
 					try {
-						while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) 
+						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) 
 						{
 							newMove = "" + r + c + (r + j * moveCount) + (c + k * moveCount) + " ";
 							bMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 
-								board8x8.makeMove(newMove);
-								if (king.kingSafeB())
+								Board.makeMove(newMove);
+								if (King.kingSafeB())
 									move = move + newMove;
-								board8x8.undoMove(newMove);
+								Board.undoMove(newMove);
 								moveCount++;
 						}
 						bMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 						if (Character
-								.isUpperCase(board8x8.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
-							oldPiece = board8x8.chessBoard[r + j * moveCount][c + k * moveCount];
+								.isUpperCase(Board.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
+							oldPiece = Board.chessBoard[r + j * moveCount][c + k * moveCount];
 							newMove = "" + r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece;
 
-							if (board8x8.whoseMove) {
-								board8x8.makeMove(newMove);
-								if (king.kingSafeB())
+							if (Board.whoseMove) {
+								Board.makeMove(newMove);
+								if (King.kingSafeB())
 									move = move + newMove;
-								board8x8.undoMove(newMove);
+								Board.undoMove(newMove);
 							}
 						}
 					} catch (Exception e) {
@@ -91,7 +91,7 @@ public class bishop {
 				}
 			}
 		}
-		bb.bMovesB = bMovesB;
+//		BB.bMovesB = bMovesB;
 		return move;
 	}
 
@@ -106,7 +106,7 @@ public class bishop {
 			if (j != 0 & k != 0)
 				{
 					try {
-						while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) 
+						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) 
 						{
 							bMovesB[(r+j*moveCount)*8+(c+k*moveCount)] = true;
 							moveCount++;
@@ -128,7 +128,7 @@ public class bishop {
 				if (j != 0 & k != 0)
 					{
 						try {
-							while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) 
+							while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) 
 							{
 								bMovesW[(r+j*moveCount)*8+(c+k*moveCount)] = true;
 								moveCount++;

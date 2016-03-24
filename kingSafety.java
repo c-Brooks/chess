@@ -4,16 +4,17 @@
  * Enemy pieces pointed at the king are unsafe
  */
 
-public class kingSafety {
+/*
+public class KingSafety {
 	
 	public static int kingSafetyW(String[][] pos) {
-		int r = king.kingPosW / 8, c = king.kingPosW % 8;
+		int r = King.kingPosW / 8, c = King.kingPosW % 8;
 		int eval = 0;
 
-		if (!board8x8.kCastlingW) {
-			if ("P".equals(board8x8.chessBoard[r - 1][c]))// pawn in front of king
+		if (!Board.kCastlingW) {
+			if ("P".equals(Board.chessBoard[r - 1][c]))// pawn in front of king
 				eval += 10;
-			else if ("P".equals(board8x8.chessBoard[r - 2][c]) && "B".equals(board8x8.chessBoard[r - 1][c]))
+			else if ("P".equals(Board.chessBoard[r - 2][c]) && "B".equals(Board.chessBoard[r - 1][c]))
 				eval += 20;// fianchettos are safe
 			else
 				eval -= 30;
@@ -22,50 +23,50 @@ public class kingSafety {
 		for (int j = 0; j < 9; j++)
 		{
 			try {
-				if (bb.piecesW[(r - 1 + j / 3)*8+(c - 1 + j % 3)]
-		 || bb.piecesW[(r - 1 + 2 * j / 3)*8+(c - 1 + 2 * j % 3)])
+				if (BB.piecesW[(r - 1 + j / 3)*8+(c - 1 + j % 3)]
+		 || BB.piecesW[(r - 1 + 2 * j / 3)*8+(c - 1 + 2 * j % 3)])
 					eval += 5;
 			
 	
 			int newRow = (r - 1 + j / 3);
 			int newCol = (c - 1 + j % 3);
 			
-			if(bb.controlB()[newRow*8+newCol])
+			if(BB.controlB()[newRow*8+newCol])
 				eval-=10;
-			if(bb.controlW()[newRow*8+newCol])
+			if(BB.controlW()[newRow*8+newCol])
 				eval-=5;
 			} catch (Exception e) {}
 		}
 		return eval;
 	}
 	public static int kingSafetyB(String[][] pos) {
-		int r = king.kingPosB / 8, c = king.kingPosB % 8;
+		int r = King.kingPosB / 8, c = King.kingPosB % 8;
 		int eval = 0;
 
 
-		if (!board8x8.kCastlingB) {
-			if ("p".equals(board8x8.chessBoard[r + 1][c]))// pawn in front of king
+		if (!Board.kCastlingB) {
+			if ("p".equals(Board.chessBoard[r + 1][c]))// pawn in front of king
 				eval += 10;
-			else if ("p".equals(board8x8.chessBoard[r + 2][c]) && "b".equals(board8x8.chessBoard[r + 1][c]))
+			else if ("p".equals(Board.chessBoard[r + 2][c]) && "b".equals(Board.chessBoard[r + 1][c]))
 				eval += 20;// fianchettos are safe
 			else
 				eval -= 30;
 		}
 		for (int j = 0; j < 9; j++) {
 			try {
-					if (bb.piecesW[(r - 1 + j / 3)*8+(c - 1 + j % 3)]
-			 || bb.piecesW[(r - 1 + 2 * j / 3)*8+(c - 1 + 2 * j % 3)])
+					if (BB.piecesW[(r - 1 + j / 3)*8+(c - 1 + j % 3)]
+			 || BB.piecesW[(r - 1 + 2 * j / 3)*8+(c - 1 + 2 * j % 3)])
 						eval += 5;
 
 			int newRow = (r - 1 + j / 3);
 			int newCol = (c - 1 + j % 3);
 
-			if(bb.controlB()[newRow*8+newCol])
+			if(BB.controlB()[newRow*8+newCol])
 				eval-=10;
-			if(bb.controlW()[newRow*8+newCol])
+			if(BB.controlW()[newRow*8+newCol])
 				eval-=5;
 			}catch (Exception e){}
 		}
 		return eval;
 	}
-}
+}*/

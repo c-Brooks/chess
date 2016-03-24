@@ -1,5 +1,5 @@
 
-public class stratEval {
+public class StratEval {
 
 	public static int materialBalance(String[][] pos)
 	{
@@ -56,28 +56,28 @@ public class stratEval {
 	{
 		int eval=0;
 		
- 		eval+=materialBalance(pos)+kingSafety.kingSafetyW(board8x8.chessBoard)
-		-kingSafety.kingSafetyB(board8x8.chessBoard)+activity.piecePlacement(board8x8.chessBoard)
-		+pawnStructure.spaceW(board8x8.chessBoard)-pawnStructure.spaceB(board8x8.chessBoard)
-		+pawnStructure.pawnCenter(board8x8.chessBoard);
+ 		eval+=materialBalance(pos)+Activity.piecePlacement(Board.chessBoard)
+		+PawnStructure.spaceW(Board.chessBoard)-PawnStructure.spaceB(Board.chessBoard)
+		+PawnStructure.pawnCenter(Board.chessBoard);
 
-		
+		/*
 		for (int i=0; i<64; i++)
 		{
-		if(bb.controlB()[i] && bb.piecesW[i] && !bb.controlW()[i]) // attackedW
+		if(BB.controlB()[i] && BB.piecesW[i] && !BB.controlW()[i]) // attackedW
 			eval-=20;
-		if(bb.controlW()[i] && bb.piecesB[i] && !bb.controlB()[i]) // attackedB
+		if(BB.controlW()[i] && BB.piecesB[i] && !BB.controlB()[i]) // attackedB
 			eval+=20;
-		if(bb.pTakesB[i] && bb.piecesW[i])
+		if(BB.pTakesB[i] && BB.piecesW[i])
 			eval+=40;
-		if(bb.pTakesW[i] && bb.piecesB[i])
+		if(BB.pTakesW[i] && BB.piecesB[i])
 			eval-=40;
 		}
-		
-	    if(board8x8.kCastlingW) eval+=30;
-	    if(board8x8.qCastlingW) eval+=10;
-	    if(board8x8.kCastlingB) eval-=30;
-	    if(board8x8.qCastlingB) eval-=10;
+		*/
+ 		
+	    if(Board.kCastlingW) eval+=30;
+	    if(Board.qCastlingW) eval+=10;
+	    if(Board.kCastlingB) eval-=30;
+	    if(Board.qCastlingB) eval-=10;
 	    
 		return eval;
 	}

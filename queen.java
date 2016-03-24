@@ -1,5 +1,5 @@
 
-public class queen {
+public class Queen {
 
 	public static boolean[] qMovesW = new boolean[64];
 	public static boolean[] qMovesB = new boolean[64];
@@ -13,29 +13,29 @@ public class queen {
 		for (int j = 1; j >= -1; j--) {
 			for (int k = 1; k >= -1; k--) {
 				{ try {
-					while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) {
+					while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
 						qMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 
-						board8x8.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");
-						if(king.kingSafeW())
+						Board.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");
+						if(King.kingSafeW())
 							move = move + r + c + (r + j * moveCount) + (c + k * moveCount) + " ";
-						board8x8.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");							qMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
+						Board.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");							qMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 						moveCount++;
 					}
 					qMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
-					if (Character.isLowerCase(board8x8.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
-						oldPiece = board8x8.chessBoard[r + j * moveCount][c + k * moveCount];
+					if (Character.isLowerCase(Board.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
+						oldPiece = Board.chessBoard[r + j * moveCount][c + k * moveCount];
 						
-						board8x8.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);
-						if(king.kingSafeW())
+						Board.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);
+						if(King.kingSafeW())
 							move = move + r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece;
-						board8x8.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);							}
+						Board.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);							}
 					} catch (Exception e) {}
 					moveCount = 1;
 				}
 			}
 		}
-		bb.qMovesW = qMovesW;
+//		BB.qMovesW = qMovesW;
 		return move;
 	}
 
@@ -49,27 +49,27 @@ public class queen {
 			for (int k = 1; k >= -1; k--) {
 				{ try {
 					
-						while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) {		
+						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {		
 							qMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 
-							board8x8.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");
-							if(king.kingSafeB())
+							Board.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");
+							if(King.kingSafeB())
 								move = move + r + c + (r + j * moveCount) + (c + k * moveCount) + " ";
-							board8x8.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");								moveCount++;
+							Board.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + " ");								moveCount++;
 						}
 							qMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
-						if (Character.isUpperCase(board8x8.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
-							oldPiece = board8x8.chessBoard[r + j * moveCount][c + k * moveCount];
-							board8x8.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);
-							if(king.kingSafeB())
+						if (Character.isUpperCase(Board.chessBoard[r + j * moveCount][c + k * moveCount].charAt(0))) {
+							oldPiece = Board.chessBoard[r + j * moveCount][c + k * moveCount];
+							Board.makeMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);
+							if(King.kingSafeB())
 								move = move + r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece;
-							board8x8.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);							}
+							Board.undoMove(""+r + c + (r + j * moveCount) + (c + k * moveCount) + oldPiece);							}
 					} catch (Exception e) {}
 					moveCount = 1;
 				}
 			}
 		}
-		bb.qMovesB = qMovesB;
+//		BB.qMovesB = qMovesB;
 		return move;
 	}
 	public static void controlW(int i)
@@ -80,7 +80,7 @@ public class queen {
 		for (int j = 1; j >= -1; j--) {
 			for (int k = 1; k >= -1; k--) {
 				{ try {
-					while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) {
+					while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
 						qMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 						moveCount++;
 						}
@@ -99,7 +99,7 @@ public class queen {
 		for (int j = 1; j >= -1; j--) {
 			for (int k = 1; k >= -1; k--) {
 				{ try {
-					while (" ".equals(board8x8.chessBoard[r + j * moveCount][c + k * moveCount])) {
+					while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
 						qMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 						moveCount++;
 						}

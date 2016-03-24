@@ -6,8 +6,9 @@
  *   by cycling through the 64 indices
  */
 
+
 @SuppressWarnings("unused")
-public class bb {
+public class BB {
 	
 
 // MOVES: Also covers own pieces that are protected
@@ -38,10 +39,11 @@ public class bb {
 	public static boolean[] piecesW  = new boolean[64];
 	public static boolean[] piecesB  = new boolean[64];
 
-	
+
 	
 // BOARD: Board properties for evaluation  FIX TO ACCOMODATE BOOLEAN ARRAYS
 	
+	/*
 	private static long empty        = 0L;  
 	private static long lightSquares = 0x5555555555555555L;
 	private static long darkSquares  = 0x2AAAAAAAAAAAAAAAL;
@@ -54,13 +56,14 @@ public class bb {
 	private static long gFile = 0x4040404040404040L;
 	private static long hFile = 0x8080808080808080L;
 	public static long center = 0x0000001818000000L;
-	
+	*/
+
 	public static void getPieces()
 	{
 		boolean[] pieces = new boolean[64];
 		for (int i=0; i<64; i++)
 		{
-			switch (board8x8.chessBoard[i/8][i%8])
+			switch (Board.chessBoard[i/8][i%8])
 			{
 case "K":	
 	kings[i] = true;
@@ -144,7 +147,7 @@ case "p":
 	
 	public static void clearBB() // Reset bitboards
 	{
-		if (!board8x8.whoseMove)
+		if (!Board.whoseMove)
 		{
 			for (int i = 0; i<64; i++)
 			{
@@ -172,43 +175,43 @@ case "p":
 	
 		for (int i=0; i<64; i++)
 		{
-	switch (board8x8.chessBoard[i/8][i%8])
+	switch (Board.chessBoard[i/8][i%8])
 			{
 	case "K":	
-			king.movesW(i);
+			King.movesW(i);
 		break;
 	case "k":	
-			king.movesB(i);
+			King.movesB(i);
 		break;
 	case "Q":	
-			queen.controlW(i);
+			Queen.controlW(i);
 		break;
 	case "q":	
-			queen.controlB(i);
+			Queen.controlB(i);
 		break;
 	case "R":	
-			rook.controlW(i);
+			Rook.controlW(i);
 		break;
 	case "r":	
-			rook.controlB(i);
+			Rook.controlB(i);
 		break;
 	case "B":	
-			bishop.controlW(i);
+			Bishop.controlW(i);
 		break;
 	case "b":	
-			bishop.controlB(i);
+			Bishop.controlB(i);
 		break;
 	case "N":	
-			knight.controlW(i);
+			Knight.controlW(i);
 		break;
 	case "n":	
-			knight.controlB(i);
+			Knight.controlB(i);
 		break;
 	case "P":	
-			pawn.controlW(i);
+			Pawn.controlW(i);
 		break;
 	case "p":	
-			pawn.controlB(i);
+			Pawn.controlB(i);
 		break;
 			}
 		}

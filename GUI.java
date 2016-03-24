@@ -39,7 +39,7 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 	for (int i=0;i<64;i++)
 	{
 		int j=-1,k=-1;
-		switch (board8x8.chessBoard[i/8][i%8])
+		switch (Board.chessBoard[i/8][i%8])
 		{
 		case "K":	j=0; k=0;
 			break;
@@ -91,23 +91,23 @@ String dragMove="";
 			dragMove=""+mouseY/squareSize+mouseX/squareSize+newMouseY/squareSize+newMouseX/squareSize;
 		
 		// dragMove must appear in possibleMoves for it to be a legal move
-		String userPoss=board8x8.possibleMoves();
+		String userPoss=Board.possibleMoves();
 		if (userPoss.replaceAll(dragMove, "").length()<userPoss.length())
 		{
 			int i = userPoss.indexOf(dragMove)+4;
 			dragMove+=userPoss.charAt(i);
-			board8x8.recordMove(dragMove);
+			Board.recordMove(dragMove);
 									
 			long startTime = System.currentTimeMillis();
 			
 			AI.reset();
 
-			AI.think(5, 3);
-			board8x8.recordMove(AI.bestPath.substring(0,5));
+			AI.think(3, 3);
+			Board.recordMove(AI.bestPath.substring(0,5));
 			
 			System.out.println("\n"+dragMove);
 			
-			bb.refreshMoves();
+			BB.refreshMoves();
 			printCntl();
 				
 			long finishTime = System.currentTimeMillis();
@@ -130,17 +130,17 @@ String dragMove="";
 	
 public static void printCntl() // FOR TESTING PURPOSES
 {	
-	bb.refreshMoves();
+	BB.refreshMoves();
 	System.out.println("");
 	for (int j=0; j<64; j++)
 		{
-		if(bb.controlW()[j] && bb.controlB()[j])
+		if(BB.controlW()[j] && BB.controlB()[j])
 			System.out.print("# ");
 		
-   else if(bb.controlW()[j]==true)
+   else if(BB.controlW()[j]==true)
 			System.out.print("X ");
 		
-   else	if(bb.controlB()[j]==true)
+   else	if(BB.controlB()[j]==true)
 			System.out.print("O ");
 		
    else		System.out.print(". ");	
@@ -155,12 +155,13 @@ public static void printCntl() // FOR TESTING PURPOSES
 	// Print the board on the console
 		for (int j=0; j<64; j++) 
 		{
-			System.out.print(" "+board8x8.chessBoard[j/8][j%8]);
+			System.out.print(" "+Board.chessBoard[j/8][j%8]);
 			if(j%8==7)
 				System.out.println("  |"+(8-j/8));
 		}
 	System.out.println(" ________________\n a b c d e f g h ");
 
 	}
+	
 }
 

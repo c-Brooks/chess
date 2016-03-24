@@ -6,7 +6,7 @@
  * To take is a mistake!
  */
 
-public class activity {
+public class Activity {
 	public static int development(String[][] pos) {
 
 		return 1;
@@ -48,10 +48,10 @@ public class activity {
 		int c = i % 8;
 		if (c == 0 || c == 7 || r == 7 || r==0)
 			nEval -=TEST;
-	try{  if (bb.pawnsW[i+8])
+	try{  //if (BB.pawnsW[i+8])
 		{
 		nEval+=20;
-		if(pawnStructure.isBackward((r+1)*8+c))
+		if(PawnStructure.isBackward((r+1)*8+c))
 			nEval+=30;
 		}
 	}catch (Exception e){}
@@ -65,10 +65,10 @@ public class activity {
 		int c = i % 8;
 		if (c == 0 || c == 7 || r == 0 || r == 7)
 			nEval -= TEST;
-	try{  if (bb.pawnsW[i-8])
+	try{//  if (BB.pawnsW[i-8])
 		{
 		nEval+=20;
-		if(pawnStructure.isBackward((r-1)*8+c))
+		if(PawnStructure.isBackward((r-1)*8+c))
 			nEval+=30;
 		}
 	}catch (Exception e){}
@@ -79,16 +79,13 @@ public class activity {
 	{	int r = i / 8;
 		int c = i % 8;
 		int bEval=0;
+
 		
-		boolean[] control = bb.bMovesW;
 		
 		
-			//	}
-		//	}
-		//}
 		if (c == 0 || c == 7 || r == 0 || r == 7)
 			bEval -= TEST;
-		if ("p".equals(board8x8.chessBoard[r-1][c+1]) || "p".equals(board8x8.chessBoard[r-1][c-1]))
+		if ("p".equals(Board.chessBoard[r-1][c+1]) || "p".equals(Board.chessBoard[r-1][c-1]))
 			bEval-=50;
 		return bEval;
 	}
@@ -104,7 +101,7 @@ public class activity {
 
 		if (c == 0 || c == 7 || r == 0 || r == 7)
 			bEval -= TEST;
-		if ("P".equals(board8x8.chessBoard[r+1][c+1]) || "P".equals(board8x8.chessBoard[r+1][c-1]))
+		if ("P".equals(Board.chessBoard[r+1][c+1]) || "P".equals(Board.chessBoard[r+1][c-1]))
 			bEval-=50;
 		return bEval;
 	}
@@ -116,16 +113,16 @@ public class activity {
 		int rEval = 0;
 		for (int j = 0; j < 8; j++) {
 			try {
-				if ("P".equals(board8x8.chessBoard[j][c])) // on a closed file
+				if ("P".equals(Board.chessBoard[j][c])) // on a closed file
 					rEval -= j * 4;
-				if ("R".equals(board8x8.chessBoard[j][c])) // rooks are doubled
+				if ("R".equals(Board.chessBoard[j][c])) // rooks are doubled
 					rEval += 30;
-				if ("R".equals(board8x8.chessBoard[r][j])) // rooks connected
+				if ("R".equals(Board.chessBoard[r][j])) // rooks connected
 					rEval += 15;
 //				if ("p".equals(board8x8.chessBoard[r][j]) && 
 //					pawnStructure.isBackward(j*8+c)) // backward pawn on semi-open file AND BLACK
 //					rEval += 20;
-				if ("p".equals(board8x8.chessBoard[r-1][c+1]) || "p".equals(board8x8.chessBoard[r-1][c-1]))
+				if ("p".equals(Board.chessBoard[r-1][c+1]) || "p".equals(Board.chessBoard[r-1][c-1]))
 					rEval-=50;
 			} catch (Exception e) {}
 		}
@@ -138,15 +135,15 @@ public class activity {
 		int rEval = 0;
 		for (int j = 0; j < 8; j++) {
 			try {
-				if ("p".equals(board8x8.chessBoard[j][c])) // on a closed file
+				if ("p".equals(Board.chessBoard[j][c])) // on a closed file
 					rEval -= (7-j) * 4;
-				if ("r".equals(board8x8.chessBoard[j][c])) // rooks are doubled
+				if ("r".equals(Board.chessBoard[j][c])) // rooks are doubled
 					rEval += 30;
-				if ("r".equals(board8x8.chessBoard[r][j])) // rooks connected
+				if ("r".equals(Board.chessBoard[r][j])) // rooks connected
 					rEval += 15;
 //				if (pawnStructure.isBackward(j+c*8)) // backward pawn on semi-open file
 	//				rEval += 20;
-				if ("P".equals(board8x8.chessBoard[r+1][c+1]) || "P".equals(board8x8.chessBoard[r+1][c-1]))
+				if ("P".equals(Board.chessBoard[r+1][c+1]) || "P".equals(Board.chessBoard[r+1][c-1]))
 					rEval-=50;
 			} catch (Exception e) {}
 

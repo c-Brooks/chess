@@ -4,7 +4,7 @@
  * 
  * 
  */
-public class pawn {
+public class Pawn {
 
 	public static boolean[] pMovesW = new boolean[64];
 	public static boolean[] pMovesB = new boolean[64];
@@ -21,35 +21,35 @@ public class pawn {
 
 		try {
 			if (r == 6) {
-				if (" ".equals(board8x8.chessBoard[r - 2][c]) && " ".equals(board8x8.chessBoard[r - 1][c])) {
+				if (" ".equals(Board.chessBoard[r - 2][c]) && " ".equals(Board.chessBoard[r - 1][c])) {
 					pMovesW[(r-2)*8+c] = true;
-					oldPiece = board8x8.chessBoard[r - 2][c];
+					oldPiece = Board.chessBoard[r - 2][c];
 
-					board8x8.makeMove("" + r + c + (r - 2) + c + oldPiece);
-					if(king.kingSafeW())
+					Board.makeMove("" + r + c + (r - 2) + c + oldPiece);
+					if(King.kingSafeW())
 						move = move + r + c + (r - 2) + c + oldPiece;
-					board8x8.undoMove("" + r + c + (r - 2) + c + oldPiece);
+					Board.undoMove("" + r + c + (r - 2) + c + oldPiece);
 //					enPassantW[c] = true;
 				}
 			}
-			if (" ".equals(board8x8.chessBoard[r - 1][c])) {
+			if (" ".equals(Board.chessBoard[r - 1][c])) {
 				pMovesW[(r-1)*8+c] = true;
-				oldPiece = board8x8.chessBoard[r - 1][c];
+				oldPiece = Board.chessBoard[r - 1][c];
 				
-				board8x8.makeMove("" + r + c + (r - 1) + c + oldPiece);
-				if(king.kingSafeW())
+				Board.makeMove("" + r + c + (r - 1) + c + oldPiece);
+				if(King.kingSafeW())
 					move = move + r + c + (r - 1) + c + oldPiece;
-				board8x8.undoMove("" + r + c + (r - 1) + c + oldPiece);	
+				Board.undoMove("" + r + c + (r - 1) + c + oldPiece);	
 				}
  //capturing diagonally
 			for (int j = -1; j <= 1; j += 2) {
-				if (Character.isLowerCase((board8x8.chessBoard[r - 1][c + j]).charAt(0))) {
+				if (Character.isLowerCase((Board.chessBoard[r - 1][c + j]).charAt(0))) {
 					pTakesW[(r-1)*8+c] = true;
-					oldPiece = board8x8.chessBoard[r - 1][c + j];
-					board8x8.makeMove("" + r + c + (r - 1) + (c+j) + oldPiece);
-					if(king.kingSafeW())
+					oldPiece = Board.chessBoard[r - 1][c + j];
+					Board.makeMove("" + r + c + (r - 1) + (c+j) + oldPiece);
+					if(King.kingSafeW())
 						move = move + r + c + (r - 1) + (c+j) + oldPiece;
-					board8x8.undoMove("" + r + c + (r - 1) + (c+j) + oldPiece);					}
+					Board.undoMove("" + r + c + (r - 1) + (c+j) + oldPiece);					}
 			}
 //en passant
 			/*
@@ -62,8 +62,8 @@ public class pawn {
 				}
 				*/
 		} catch (Exception e) {}
-		bb.pMovesW=pMovesW;
-		bb.pTakesW=pTakesW;
+//		BB.pMovesW=pMovesW;
+//		BB.pTakesW=pTakesW;
 		return move;
 	}
 
@@ -73,35 +73,35 @@ public class pawn {
 
 		try {
 			if (r == 1) {
-				if (" ".equals(board8x8.chessBoard[r + 2][c]) && " ".equals(board8x8.chessBoard[r + 1][c])) {
+				if (" ".equals(Board.chessBoard[r + 2][c]) && " ".equals(Board.chessBoard[r + 1][c])) {
 					pMovesB[(r+2)*8+c] = true;
-					oldPiece = board8x8.chessBoard[r + 2][c];
-					board8x8.makeMove(""+r + c + (r + 2) + c + oldPiece);
-					if(king.kingSafeB())
+					oldPiece = Board.chessBoard[r + 2][c];
+					Board.makeMove(""+r + c + (r + 2) + c + oldPiece);
+					if(King.kingSafeB())
 						move = move + r + c + (r + 2) + c + oldPiece;
-					board8x8.undoMove(""+r + c + (r + 2) + c + oldPiece);
+					Board.undoMove(""+r + c + (r + 2) + c + oldPiece);
 //					enPassantB[c] = true;
 					
 				}
 			}
-			if (" ".equals(board8x8.chessBoard[r + 1][c])) {
+			if (" ".equals(Board.chessBoard[r + 1][c])) {
 				pMovesB[(r+1)*8+c] = true;
-				oldPiece = board8x8.chessBoard[r + 1][c];
-				board8x8.makeMove(""+r + c + (r + 1) + c + oldPiece);
-				if(king.kingSafeB())
+				oldPiece = Board.chessBoard[r + 1][c];
+				Board.makeMove(""+r + c + (r + 1) + c + oldPiece);
+				if(King.kingSafeB())
 					move = move + r + c + (r + 1) + c + oldPiece;
-				board8x8.undoMove(""+r + c + (r + 1) + c + oldPiece);			
+				Board.undoMove(""+r + c + (r + 1) + c + oldPiece);			
 				}
 			
 //capturing diagonally
 			for (int j = -1; j <= 1; j += 2) {
-				if (Character.isUpperCase((board8x8.chessBoard[r + 1][c + j]).charAt(0))) {
+				if (Character.isUpperCase((Board.chessBoard[r + 1][c + j]).charAt(0))) {
 					pTakesB[(r+1)*8+(c+j)] = true;
-					oldPiece = board8x8.chessBoard[r + 1][c + j];
-					board8x8.makeMove("" + r + c + (r + 1) + (c+j) + oldPiece);
-					if(king.kingSafeB())
+					oldPiece = Board.chessBoard[r + 1][c + j];
+					Board.makeMove("" + r + c + (r + 1) + (c+j) + oldPiece);
+					if(King.kingSafeB())
 						move = move + r + c + (r + 1) + (c+j) + oldPiece;
-					board8x8.undoMove("" + r + c + (r + 1) + (c+j) + oldPiece);			
+					Board.undoMove("" + r + c + (r + 1) + (c+j) + oldPiece);			
 				}
 			}
 			/*
@@ -114,8 +114,8 @@ public class pawn {
 			}
 			*/
 		} catch (Exception e) {}
-		bb.pMovesB=pMovesB;
-		bb.pTakesB=pTakesB;
+//		BB.pMovesB=pMovesB;
+//		BB.pTakesB=pTakesB;
 		return move;
 	}
 	

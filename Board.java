@@ -7,7 +7,7 @@
  * 		
  */
 
-public class board8x8
+public class Board
 	{
 //	public static String colLUT[] = {"a", "b", "c", "d", "e", "f", "g", "h"};
 //	public static String rowLUT[] = {"8", "7", "6", "5", "4", "3", "2", "1"};
@@ -73,9 +73,9 @@ public class board8x8
 			
 	// Changing kingPos when king movevs
 	if ("K".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))]))
-		king.kingPosW=Character.getNumericValue(move.charAt(2))*8+Character.getNumericValue(move.charAt(3));
+		King.kingPosW=Character.getNumericValue(move.charAt(2))*8+Character.getNumericValue(move.charAt(3));
 	if ("k".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))]))
-		king.kingPosB=Character.getNumericValue(move.charAt(2))*8+Character.getNumericValue(move.charAt(3));
+		King.kingPosB=Character.getNumericValue(move.charAt(2))*8+Character.getNumericValue(move.charAt(3));
 	
 	// Check if king or rooks are not in place, forfeit castling rights
 	if (" ".equals(chessBoard[7][4]))
@@ -95,13 +95,13 @@ public class board8x8
 try{
 	if((move.charAt(4))=='p' &&
 	   "P".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))])
-		&& pawn.enPassantB[Character.getNumericValue(move.charAt(2))]==true)
+		&& Pawn.enPassantB[Character.getNumericValue(move.charAt(2))]==true)
 			{
 		chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(3))]=" ";
 			}
 	if((move.charAt(4))=='P' &&
 	   "p".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))])
-	   && pawn.enPassantW[Character.getNumericValue(move.charAt(2))]==true)
+	   && Pawn.enPassantW[Character.getNumericValue(move.charAt(2))]==true)
 			{
 		chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(3))]=" ";
 			}
@@ -118,9 +118,9 @@ try{
 // After each move, switch sides to move and get rid of en passant rights
 		for (int c=0; c<8; c++){
 	if(!whoseMove)
-		pawn.enPassantW[c]=false;
+		Pawn.enPassantW[c]=false;
 	if(whoseMove)
-		pawn.enPassantB[c]=false;
+		Pawn.enPassantB[c]=false;
 		}
 	}	
 
@@ -134,58 +134,80 @@ try{
 			{
 	case "K":	
 		if(!whoseMove)
-			move+=king.movesW(i);
+			move+=King.movesW(i);
 		break;
 	case "k":	
 		if(whoseMove)
-			move+=king.movesB(i);
+			move+=King.movesB(i);
 		break;
 	case "Q":	
 		if(!whoseMove)
-			move+=queen.movesW(i);
+			move+=Queen.movesW(i);
 		break;
 	case "q":	
 		if(whoseMove)
-			move+=queen.movesB(i);
+			move+=Queen.movesB(i);
 		break;
 	case "R":	
 		if(!whoseMove)
-			move+=rook.movesW(i);
+			move+=Rook.movesW(i);
 		break;
 	case "r":	
 		if(whoseMove)
-			move+=rook.movesB(i);
+			move+=Rook.movesB(i);
 		break;
 		
 	case "B":	
 		if(!whoseMove)
-			move+=bishop.movesW(i);
+			move+=Bishop.movesW(i);
 		break;
 	case "b":	
 		if(whoseMove)
-			move+=bishop.movesB(i);
+			move+=Bishop.movesB(i);
 		break;
 	
 	case "N":	
 		if(!whoseMove)
-			move+=knight.movesW(i);
+			move+=Knight.movesW(i);
 		break;
 	case "n":	
 		if(whoseMove)
-			move+=knight.movesB(i);
+			move+=Knight.movesB(i);
 		break;
 		
 	case "P":	
 		if(!whoseMove)
-			move+=pawn.movesW(i);
+			move+=Pawn.movesW(i);
 		break;
 	case "p":	
 		if(whoseMove)
-			move+=pawn.movesB(i);
+			move+=Pawn.movesB(i);
 		break;
 			}
 		}
-	
+		
+		if(!whoseMove) // White castling
+		{
+			if (Board.kCastlingW && " ".equals(Board.chessBoard[7][5])
+					&& " ".equals(Board.chessBoard[7][6])) {
+				move = move + 7 + 4 + 7 + 6 + " ";
+			}
+			if (Board.qCastlingW && " ".equals(Board.chessBoard[7][3])
+					&& " ".equals(Board.chessBoard[7][2]) && " ".equals(Board.chessBoard[7][1])) {
+				move = move + 7 + 4 + 7 + 2 + " ";
+			}
+		}
+		if(whoseMove) // Black castling
+		{
+			if (kCastlingB && " ".equals(chessBoard[0][5])
+					&& " ".equals(chessBoard[0][6])) {
+				move = move + 0 + 4 + 0 + 6 + " ";
+			}
+			if (Board.qCastlingB && " ".equals(Board.chessBoard[0][3])
+					&& " ".equals(Board.chessBoard[0][2]) && " ".equals(Board.chessBoard[0][1])) {
+				move = move + 0 + 4 + 0 + 2 + " ";
+			}
+		}
 	return move;
 	}
 	
@@ -197,7 +219,6 @@ try{
     	//(1) move 02(23) to 01 (01)
     	//(2) put P (4) at 23
     	
-    	
     	chessBoard[Character.getNumericValue(move.charAt(0))][Character.getNumericValue(move.charAt(1))]
     	=chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))];
     	           
@@ -206,7 +227,7 @@ try{
 
     	whoseMove=!whoseMove;
     	
-    	bb.refreshMoves();
+//    	BB.refreshMoves();
 
    /* 	
    	try{ if(!("P".equals(chessBoard[move.charAt(0)][move.charAt(1)]) 
