@@ -4,7 +4,10 @@
  * 
  * Also contains makeMove and undoMove functions and possibleMoves
  * 
- * 		
+ * 					TO DO:
+ * Take bitboard support out of each piece's mailbox functions
+ * Bitboards don't work on white's move
+ * 
  */
 
 public class Board
@@ -19,12 +22,12 @@ public class Board
 
 	public static String chessBoard[][] = {
 			{"r", "n", "b", "q", "k", "b", "n", "r"},
-			{"p", "p", "p", "p", "p", "p", "p", "p"},
+			{"p", "p", "p", " ", " ", "p", "p", "p"},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
-			{"P", "P", "P", "P", "P", "P", "P", "P"},
+			{"P", "P", "P", " ", " ", " ", "P", "P"},
 			{"R", "N", "B", "Q", "K", "B", "N", "R"}};
 
 	
@@ -71,7 +74,7 @@ public class Board
 			whoseMove = !whoseMove;
 		}
 			
-	// Changing kingPos when king movevs
+	// Changing kingPos when king moves
 	if ("K".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))]))
 		King.kingPosW=Character.getNumericValue(move.charAt(2))*8+Character.getNumericValue(move.charAt(3));
 	if ("k".equals(chessBoard[Character.getNumericValue(move.charAt(2))][Character.getNumericValue(move.charAt(3))]))
@@ -253,23 +256,28 @@ try{
     	
     	
     	// Moving rook when castling
-    	if("7476 ".equals(move))
+    	if("7476 ".equals(move) && ("K".equals(chessBoard[Character.getNumericValue(move.charAt(2))]
+    			[Character.getNumericValue(move.charAt(3))]))
+)
     	{
     		chessBoard[7][7] = "R";
     	}
-    	if("0406 ".equals(move))
+    	if("0406 ".equals(move) && ("K".equals(chessBoard[Character.getNumericValue(move.charAt(2))]
+    			[Character.getNumericValue(move.charAt(3))])))
     	{
 //    		undoMove("0705 ");
     		chessBoard[7][0] = "R";
 //    		whoseMove = !whoseMove;
     	}
-    	if("7472 ".equals(move))
+    	if("7472 ".equals(move) && ("k".equals(chessBoard[Character.getNumericValue(move.charAt(2))]
+    			[Character.getNumericValue(move.charAt(3))])))
     	{
 //    		undoMove("7073 ");
     		chessBoard[0][7] = "r";
 //    		whoseMove = !whoseMove;
     	}
-    	if("0402 ".equals(move))
+    	if("0402 ".equals(move) && ("k".equals(chessBoard[Character.getNumericValue(move.charAt(2))]
+    			[Character.getNumericValue(move.charAt(3))])))
     	{
 //    		undoMove("0003 ");
     		chessBoard[0][0] = "r";

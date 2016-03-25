@@ -52,15 +52,14 @@ public class StratEval {
 		return materialEval;
 	}
 	
-	public static int globalEval(String[][] pos)
+	public static int globalEval(String[][] pos) // END RESULT: Addition of other classes, no eval
 	{
 		int eval=0;
 		
- 		eval+=materialBalance(pos)+Activity.piecePlacement(Board.chessBoard)
-		+PawnStructure.spaceW(Board.chessBoard)-PawnStructure.spaceB(Board.chessBoard)
-		+PawnStructure.pawnCenter(Board.chessBoard);
+ 		eval+=materialBalance(pos)+Activity.piecePlacement(pos)+PawnStructure.spaceW(pos)
+ 		-PawnStructure.spaceB(pos)+PawnStructure.pawnCenter(pos);
 
-		/*
+		
 		for (int i=0; i<64; i++)
 		{
 		if(BB.controlB()[i] && BB.piecesW[i] && !BB.controlW()[i]) // attackedW
@@ -72,8 +71,7 @@ public class StratEval {
 		if(BB.pTakesW[i] && BB.piecesB[i])
 			eval-=40;
 		}
-		*/
- 		
+		
 	    if(Board.kCastlingW) eval+=30;
 	    if(Board.qCastlingW) eval+=10;
 	    if(Board.kCastlingB) eval-=30;

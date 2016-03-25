@@ -4,7 +4,7 @@
  * Enemy pieces pointed at the king are unsafe
  */
 
-/*
+
 public class KingSafety {
 	
 	public static int kingSafetyW(String[][] pos) {
@@ -69,4 +69,4 @@ public class KingSafety {
 		}
 		return eval;
 	}
-}*/
+}

@@ -43,13 +43,16 @@ public class Pawn {
 				}
  //capturing diagonally
 			for (int j = -1; j <= 1; j += 2) {
+				try{
 				if (Character.isLowerCase((Board.chessBoard[r - 1][c + j]).charAt(0))) {
 					pTakesW[(r-1)*8+c] = true;
 					oldPiece = Board.chessBoard[r - 1][c + j];
 					Board.makeMove("" + r + c + (r - 1) + (c+j) + oldPiece);
 					if(King.kingSafeW())
 						move = move + r + c + (r - 1) + (c+j) + oldPiece;
-					Board.undoMove("" + r + c + (r - 1) + (c+j) + oldPiece);					}
+					Board.undoMove("" + r + c + (r - 1) + (c+j) + oldPiece);	
+				}
+				} catch(Exception e){}
 			}
 //en passant
 			/*
@@ -62,8 +65,6 @@ public class Pawn {
 				}
 				*/
 		} catch (Exception e) {}
-//		BB.pMovesW=pMovesW;
-//		BB.pTakesW=pTakesW;
 		return move;
 	}
 
@@ -95,6 +96,7 @@ public class Pawn {
 			
 //capturing diagonally
 			for (int j = -1; j <= 1; j += 2) {
+				try{
 				if (Character.isUpperCase((Board.chessBoard[r + 1][c + j]).charAt(0))) {
 					pTakesB[(r+1)*8+(c+j)] = true;
 					oldPiece = Board.chessBoard[r + 1][c + j];
@@ -103,19 +105,22 @@ public class Pawn {
 						move = move + r + c + (r + 1) + (c+j) + oldPiece;
 					Board.undoMove("" + r + c + (r + 1) + (c+j) + oldPiece);			
 				}
+				} catch(Exception e){}
 			}
+			
+			// TEST //
+			
 			/*
 			for (int j = -1; j <= 1; j += 2) {
-				if ("P".equals((board8x8.chessBoard[r][c + j]).charAt(0)) && enPassantW[c + j] == true) {
+				if ("P".equals((Board.chessBoard[r][c + j]).charAt(0)) && enPassantW[c + j] == true) {
 					pTakesB[r*8+(c+j)] = true;
-					oldPiece = board8x8.chessBoard[r][c + j];
+					oldPiece = Board.chessBoard[r][c + j];
 					move = move + r + c + (r + 1) + (c + j) + "P";
 				}
 			}
 			*/
+			
 		} catch (Exception e) {}
-//		BB.pMovesB=pMovesB;
-//		BB.pTakesB=pTakesB;
 		return move;
 	}
 	
@@ -124,9 +129,9 @@ public class Pawn {
 		int r = i / 8, c = i % 8;
 		for (int j = -1; j <= 1; j += 2) {
 			try{
-				pTakesW[(r-1)*8+(c+j)] = true;
-//			if ("p".equals((board8x8.chessBoard[r][c + j]).charAt(0)) && enPassantW[c + j] == true) {
-//				pTakesW[r*8+(c+j)] = true;
+				BB.pTakesW[(r-1)*8+(c+j)] = true;
+//			if ("p".equals((Board.chessBoard[r][c + j]).charAt(0)) && enPassantW[c + j] == true) {
+//				BB.pTakesW[r*8+(c+j)] = true;
 //				}
 			}catch(Exception e){}
 		}
@@ -137,9 +142,9 @@ public class Pawn {
 		int r = i / 8, c = i % 8;
 		for (int j = -1; j <= 1; j += 2) {
 			try{
-				pTakesB[(r+1)*8+(c+j)] = true;
-//			if ("p".equals((board8x8.chessBoard[r][c + j]).charAt(0)) && enPassantW[c + j] == true) {
-//				pTakesB[r*8+(c+j)] = true;
+				BB.pTakesB[(r+1)*8+(c+j)] = true;
+//			if ("p".equals((Board.chessBoard[r][c + j]).charAt(0)) && enPassantW[c + j] == true) {
+//				BB.pTakesB[r*8+(c+j)] = true;
 //				}
 			}catch(Exception e){}
 		}

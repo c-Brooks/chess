@@ -17,7 +17,6 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 	
 	static int x = 0, y = 0;
 	static int squareSize = 64;
-	
 		
 	public void paintComponent(Graphics g)
 	{
@@ -74,7 +73,8 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 	}
 }
 	// dragMove is any move that user makes (even illegal ones)
-String dragMove="";
+	String dragMove="";
+
 	public void mouseMoved(MouseEvent e){}
 	public void mousePressed(MouseEvent e){
 		if(e.getX()<(8*squareSize)&&e.getY()<(8*squareSize))
@@ -90,6 +90,7 @@ String dragMove="";
 		if (e.getButton()==MouseEvent.BUTTON1)
 			dragMove=""+mouseY/squareSize+mouseX/squareSize+newMouseY/squareSize+newMouseX/squareSize;
 		
+		
 		// dragMove must appear in possibleMoves for it to be a legal move
 		String userPoss=Board.possibleMoves();
 		if (userPoss.replaceAll(dragMove, "").length()<userPoss.length())
@@ -100,10 +101,14 @@ String dragMove="";
 									
 			long startTime = System.currentTimeMillis();
 			
+			
 			AI.reset();
-
 			AI.think(3, 3);
+			try{
 			Board.recordMove(AI.bestPath.substring(0,5));
+			} catch(Exception x)
+			{ System.out.println("\n\n##############\n # CHECKMATE!! # \n##############\n\n"); }
+			
 			
 			System.out.println("\n"+dragMove);
 			
@@ -113,7 +118,6 @@ String dragMove="";
 			long finishTime = System.currentTimeMillis();
 
 			System.out.println("\nThat took: "+(finishTime-startTime)+ " ms");
-
 		}
 	}
 	
@@ -129,26 +133,26 @@ String dragMove="";
 	
 	
 public static void printCntl() // FOR TESTING PURPOSES
-{	
+	{	
 	BB.refreshMoves();
 	System.out.println("");
 	for (int j=0; j<64; j++)
 		{
 		if(BB.controlW()[j] && BB.controlB()[j])
-			System.out.print("# ");
+			System.out.print(" #");
 		
    else if(BB.controlW()[j]==true)
-			System.out.print("X ");
+			System.out.print(" X");
 		
    else	if(BB.controlB()[j]==true)
-			System.out.print("O ");
+			System.out.print(" O");
 		
-   else		System.out.print(". ");	
+   else		System.out.print(" .");	
 		
 		if(j%8==7)
-				System.out.println("|"+(8-j/8));
+				System.out.println(" |"+(8-j/8));
 		}
-	System.out.println("a b c d e f g h \n");
+	System.out.println(" ________________\n a b c d e f g h ");
 	}
 	public static void printBoard() // FOR TESTING PURPOSES
 	{
@@ -160,8 +164,6 @@ public static void printCntl() // FOR TESTING PURPOSES
 				System.out.println("  |"+(8-j/8));
 		}
 	System.out.println(" ________________\n a b c d e f g h ");
-
 	}
-	
 }
 

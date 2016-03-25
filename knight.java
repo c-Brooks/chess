@@ -99,8 +99,8 @@ public class Knight {
 			if (j!=0 || k!=0) 
 				{
 				try {
-						nMovesW[(r+2*j)*8+(c+k)] = true;
-						nMovesW[(r+j)*8+(c+2*k)] = true;
+						BB.nMovesW[(r+2*j)*8+(c+k)] = true;
+						BB.nMovesW[(r+j)*8+(c+2*k)] = true;
 					} catch (Exception e) {};
 				}
 			}
@@ -117,8 +117,8 @@ public class Knight {
 			if (j!=0 || k!=0) 
 				{
 				try {
-						nMovesB[(r+2*j)*8+(c+k)] = true;
-						nMovesB[(r+j)*8+(c+2*k)] = true;
+						BB.nMovesB[(r+2*j)*8+(c+k)] = true;
+						BB.nMovesB[(r+j)*8+(c+2*k)] = true;
 					} catch (Exception e) {};
 				}
 			}

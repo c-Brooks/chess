@@ -40,7 +40,6 @@ public class Rook {
 				}
 			}
 		}
-//		rMovesW = BB.rMovesW;
 		return move;
 	}
 
@@ -90,10 +89,10 @@ public class Rook {
 				if (j != 0 ^ k != 0) {
 					try {
 						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
-							rMovesW [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
+							BB.rMovesW [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
 							moveCount++;
 						}
-						rMovesW [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
+						BB.rMovesW [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
 						} catch (Exception e) {}
 					moveCount = 1;
 				}
@@ -110,10 +109,10 @@ public class Rook {
 				if (j != 0 ^ k != 0) {
 					try {
 						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
-							rMovesB [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
+							BB.rMovesB [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
 							moveCount++;
 						}
-						rMovesB [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
+						BB.rMovesB [(r + j * moveCount)*8 + (c + k * moveCount)] = true;
 						} catch (Exception e) {}
 					moveCount = 1;
 				}

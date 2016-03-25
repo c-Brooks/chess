@@ -8,7 +8,7 @@
 public class PawnStructure {
 	
 
-	public static boolean isBackward(int i) { //put in work
+	public static boolean isBackward(int i) { 
 		int r = i / 8;
 		int c = i % 8;
 		boolean flag = true;
@@ -33,7 +33,7 @@ public class PawnStructure {
 		int spaceEvalW = 0;
 		for (int i = 0; i < 64; i++) {
 			int r = i / 8;
-			/*
+			
 			if (BB.pawnsW[i])
 				try {
 					if (BB.pawnsW[i+7] || BB.pawnsW[i+9] && r < 6) // protected
@@ -41,7 +41,7 @@ public class PawnStructure {
 					if (BB.pawnsW[i+1] || BB.pawnsW[i-1] && r < 6) // pawn duo
 						spaceEvalW += 6 * (-(r - 7));
 				
-				} catch (Exception e) {}*/	
+				} catch (Exception e) {}
 		}
 		return spaceEvalW;
 	}
@@ -50,14 +50,14 @@ public class PawnStructure {
 		int spaceEvalB = 0;
 		for (int i = 0; i < 64; i++) {
 			int r = i / 8;
-			/*
+			
 			if (BB.pawnsB[i])
 				try {
 					if ((BB.pawnsB[i-7] || BB.pawnsB[i-9]) && r > 2) // protected
 						spaceEvalB += 3 * r;
 					if ((BB.pawnsB[i+1] || BB.pawnsB[i-1]) && r > 2) // pawn duo
 						spaceEvalB += 6 * r;
-				} catch (Exception e) {}*/
+				} catch (Exception e) {}
 		}
 		return spaceEvalB;
 	}
@@ -68,7 +68,7 @@ public class PawnStructure {
 		int centerEvalB = 0;
 
 		int[] center = { 27, 28, 35, 36 };
-		/*
+		
 		for (int i = 0; i < 4; i++) {
 			if (BB.pawnsW[center[i]])
 				centerEvalW += 200;
@@ -78,22 +78,10 @@ public class PawnStructure {
 				centerEvalW += 50;
 			if(BB.controlB()[center[i]])
 				centerEvalB += 50;
-
-			*/
+		}
+			
 			
 		centerEval = (centerEvalW - centerEvalB);
-	//	}
 		return centerEval;
 	}
-	
-//	public static int centerControl()
-	{
-//		long controlW = bb.controlW()&(bb.center);
-//		long controlB = bb.controlB()&(bb.center);
-		
-//		return ((int)(Long.bitCount(controlW)-Long.bitCount(controlB))*100);
-	}
-
-
-
 }

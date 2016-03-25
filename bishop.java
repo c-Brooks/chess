@@ -83,60 +83,54 @@ public class Bishop {
 								if (King.kingSafeB())
 									move = move + newMove;
 								Board.undoMove(newMove);
+								}
 							}
-						}
-					} catch (Exception e) {
+						} catch (Exception e) {
 					}
 					moveCount = 1;
 				}
 			}
 		}
-//		BB.bMovesB = bMovesB;
 		return move;
 	}
 
-	public static void controlB(int i)
-	{
+	public static void controlW(int i) {
 		int r = i / 8, c = i % 8;
 		int moveCount = 1;
-		
-		
+
 		for (int j = 1; j >= -1; j--) {
 			for (int k = 1; k >= -1; k--) {
-			if (j != 0 & k != 0)
-				{
+				if (j != 0 & k != 0) {
 					try {
-						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) 
-						{
-							bMovesB[(r+j*moveCount)*8+(c+k*moveCount)] = true;
+						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
+							BB.bMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
 							moveCount++;
 						}
-						bMovesB[(r+j*moveCount)*8+(c+k*moveCount)] = true;
-					}catch(Exception e){}
-				}		
+						BB.bMovesW[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
+					} catch (Exception e) {}
+					moveCount = 1;
+				}
 			}
 		}
 	}
-		public static void controlW(int i)
-		{
-			int r = i / 8, c = i % 8;
-			int moveCount = 1;
-			
-			
-			for (int j = 1; j >= -1; j--) {
-				for (int k = 1; k >= -1; k--) {
-				if (j != 0 & k != 0)
-					{
-						try {
-							while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) 
-							{
-								bMovesW[(r+j*moveCount)*8+(c+k*moveCount)] = true;
-								moveCount++;
-							}
-							bMovesW[(r+j*moveCount)*8+(c+k*moveCount)] = true;
-						}catch(Exception e){}
-					}		
+
+	public static void controlB(int i) {
+		int r = i / 8, c = i % 8;
+		int moveCount = 1;
+
+		for (int j = 1; j >= -1; j--) {
+			for (int k = 1; k >= -1; k--) {
+				if (j != 0 & k != 0) {
+					try {
+						while (" ".equals(Board.chessBoard[r + j * moveCount][c + k * moveCount])) {
+							BB.bMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
+							moveCount++;
+						}
+						BB.bMovesB[(r + j * moveCount) * 8 + (c + k * moveCount)] = true;
+					} catch (Exception e) {}
+					moveCount = 1;
 				}
 			}
+		}
 	}
 }

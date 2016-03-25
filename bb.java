@@ -55,7 +55,7 @@ public class BB {
 	private static long fFile = 0x2020202020202020L;
 	private static long gFile = 0x4040404040404040L;
 	private static long hFile = 0x8080808080808080L;
-	public static long center = 0x0000001818000000L;
+	private static long center = 0x0000001818000000L;
 	*/
 
 	public static void getPieces()
@@ -66,27 +66,27 @@ public class BB {
 			switch (Board.chessBoard[i/8][i%8])
 			{
 case "K":	
-	kings[i] = true;
+	kings[i]   = true;
 	piecesW[i] = true;
 	break;
 case "k":	
-	kings[i] = true;
+	kings[i]   = true;
 	piecesB[i] = true;
 	break;
 case "Q":	
-	queens[i] = true;	
+	queens[i]  = true;	
 	piecesW[i] = true;
 	break;
 case "q":	
-	queens[i] = true;
+	queens[i]  = true;
 	piecesB[i] = true;
 	break;
 case "R":	
-	rooks[i] = true;
+	rooks[i]   = true;
 	piecesW[i] = true;
 	break;
 case "r":	
-	rooks[i] = true;
+	rooks[i]   = true;
 	piecesB[i] = true;
 	break;
 case "B":	
@@ -106,10 +106,10 @@ case "n":
 	piecesB[i] = true;
 	break;
 case "P":	
-	pawnsW[i] = true;
+	pawnsW[i]  = true;
 	break;
 case "p":	
-	pawnsB[i] = true;
+	pawnsB[i]  = true;
 	break;
 			}	
 		}
@@ -119,14 +119,14 @@ case "p":
 	{
 		boolean[] controlW = new boolean[64];
 		for (int i=0; i<64; i++)
-		controlW[i] = bMovesW[i]|nMovesW[i]|rMovesW[i]|qMovesW[i]|kMovesW[i]|pTakesW[i];
+		controlW[i] = bMovesW[i]|nMovesW[i]|rMovesW[i]|qMovesW[i]|kMovesW[i]|pTakesW[i]|kMovesW[i];
 		return controlW;
 	}
 	public static boolean[] controlB()
 	{
 		boolean[] controlB = new boolean[64];
 		for (int i=0; i<64; i++)
-		controlB[i] = bMovesB[i]|nMovesB[i]|rMovesB[i]|qMovesB[i]|kMovesB[i]|pTakesB[i];
+		controlB[i] = bMovesB[i]|nMovesB[i]|rMovesB[i]|qMovesB[i]|kMovesB[i]|pTakesB[i]|kMovesB[i];
 		return controlB;
 	}
 	
@@ -147,89 +147,85 @@ case "p":
 	
 	public static void clearBB() // Reset bitboards
 	{
-		if (!Board.whoseMove)
+		for (int i = 0; i<64; i++)
 		{
-			for (int i = 0; i<64; i++)
-			{
-			pTakesW[i] = false;
-			pMovesW[i] = false;
-			bMovesW[i] = false;
-			nMovesW[i] = false;
-			rMovesW[i] = false;
-			qMovesW[i] = false;
-			kMovesW[i] = false;
+		pTakesW[i] = false;
+		pMovesW[i] = false;
+		bMovesW[i] = false;
+		nMovesW[i] = false;
+		rMovesW[i] = false;
+		qMovesW[i] = false;
+		kMovesW[i] = false;
 
-			pTakesB[i] = false;
-			pMovesB[i] = false;
-			bMovesB[i] = false;
-			nMovesB[i] = false;
-			rMovesB[i] = false;
-			qMovesB[i] = false;
-			kMovesB[i] = false;
-			}
+		pTakesB[i] = false;
+		pMovesB[i] = false;
+		bMovesB[i] = false;
+		nMovesB[i] = false;
+		rMovesB[i] = false;
+		qMovesB[i] = false;
+		kMovesB[i] = false;
 		}
 	}
-	public static void refreshMoves()
+
+	public static void refreshMoves() 
 	{
 		clearBB();
-	
-		for (int i=0; i<64; i++)
-		{
-	switch (Board.chessBoard[i/8][i%8])
+
+		for (int i = 0; i < 64; i++) {
+			switch (Board.chessBoard[i / 8][i % 8]) 
 			{
-	case "K":	
-			King.movesW(i);
-		break;
-	case "k":	
-			King.movesB(i);
-		break;
-	case "Q":	
-			Queen.controlW(i);
-		break;
-	case "q":	
-			Queen.controlB(i);
-		break;
-	case "R":	
-			Rook.controlW(i);
-		break;
-	case "r":	
-			Rook.controlB(i);
-		break;
-	case "B":	
-			Bishop.controlW(i);
-		break;
-	case "b":	
-			Bishop.controlB(i);
-		break;
-	case "N":	
-			Knight.controlW(i);
-		break;
-	case "n":	
-			Knight.controlB(i);
-		break;
-	case "P":	
-			Pawn.controlW(i);
-		break;
-	case "p":	
-			Pawn.controlB(i);
-		break;
+			case "K":
+				King.controlW(i);
+				break;
+			case "k":
+				King.controlB(i);
+				break;
+			case "Q":
+				Queen.controlW(i);
+				break;
+			case "q":
+				Queen.controlB(i);
+				break;
+			case "R":
+				Rook.controlW(i);
+				break;
+			case "r":
+				Rook.controlB(i);
+				break;
+			case "B":
+				Bishop.controlW(i);
+				break;
+			case "b":
+				Bishop.controlB(i);
+				break;
+			case "N":
+				Knight.controlW(i);
+				break;
+			case "n":
+				Knight.controlB(i);
+				break;
+			case "P":
+				Pawn.controlW(i);
+				break;
+			case "p":
+				Pawn.controlB(i);
+				break;
 			}
 		}
 	}
-	
+
 	public static void print(boolean[] bb) // For testing purposes
 	{
 		System.out.println("");
-		for (int i=0; i<64; i++)
-		{
-			if(bb[i]==true)
-				System.out.print("X ");
-			if(bb[i]==false)
-				System.out.print("O ");
-			
-				if(i%8==7)
-					System.out.println("");
+		for (int i = 0; i < 64; i++) {
+			if (bb[i] == true)
+				System.out.print(" X");
+			if (bb[i] == false)
+				System.out.print(" .");
+
+			if (i % 8 == 7)
+				System.out.println("  |"+(8-i/8));
 		}
+		System.out.println(" ________________\n a b c d e f g h ");
 	}
 }
-
