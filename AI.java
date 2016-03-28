@@ -24,21 +24,25 @@ public class AI
 {		
 		static String currentPath = "";
 		static String bestPath = "";
-
+		static int alpha = -1000000000;
+		static int beta  =  1000000000;
+		
 		public static void reset() // Reset each turn
 		{
 			currentPath = "";
 			bestPath = "";
+			alpha = -1000000000;
+			beta  =  1000000000;
 		}
 	
 	public static int think(int depth, int breadth)
 	{
 					// FOR TESTING //
 		
-		System.out.println("\n\n#################");
-		System.out.println("CURRENT:  " + currentPath);
-		System.out.println("BEST:     "    + bestPath);
-		System.out.println("##################\n\n");
+		System.out.println("\n\n#######################");
+		System.out.println("# CURRENT:  " + currentPath);
+		System.out.println("# BEST:     "    + bestPath);
+		System.out.println("#######################\n\n");
 
 // ------------------------------------------------------------------------------------- //
 
@@ -56,7 +60,7 @@ public class AI
 		String candMoves = listMoves(breadth);
 
 		
-// If it's a leaf node or calculation
+		// If it's a leaf node
 	if (depth == 0 || breadth <= 1) 
 	{
 		int endVal = StratEval.globalEval(Board.chessBoard);
@@ -70,7 +74,7 @@ public class AI
 	
 	int valTemp = 0;
 	int value = 0;
-	if(!Board.whoseMove){value = -1000000000;}
+	if(!Board.whoseMove)   {value = -1000000000;}
 	else                   {value =  1000000000;}
 	if(!"".equals(candMoves))
 	{
@@ -80,31 +84,27 @@ public class AI
 			currentPath += candMoves.substring(i, i+5);
 			valTemp = think(depth-1,breadth-1);
 			Board.undoMove(candMoves.substring(i, i+5)); System.out.println("UNDO:"+candMoves.substring(i, i+5));
+		/*	
+			// Alpha-Beta pruning
+			if(Board.whoseMove && valTemp > beta)
+				{ System.out.println("Alpha > Beta"); beta = 1000000000; return valTemp; }
+			if(!Board.whoseMove && valTemp < alpha)
+				{ System.out.println("Beta < Alpha"); alpha = -1000000000; return valTemp; }
+			*/
 		if(!Board.whoseMove && valTemp > value)
-			value = valTemp; 
+			alpha = value = valTemp; 
 		if(Board.whoseMove && valTemp < value)
-			{value = valTemp; bestPath = currentPath;}
+			{ beta = value = valTemp; bestPath = currentPath; }
+		
 		currentPath = currentPath.replaceAll(candMoves.substring(i, i+5), ""); // Update currentPath
 		}
 	}
 	
 	// Once all candidate moves are analyzed
+	if(!Board.whoseMove)
+	{ return value;}
 	return value;
 	}
-
-			//alphaBeta-specific pruning :
-			
-			/*
-			if (val.alpha <= val.beta && !Board.whoseMove) {
-					val.alpha = val.beta;
-					val.currentPath = val.alphaval.beta(depth+1, breadth+1, val.beta, val.alpha);
-				}
-			if (val.beta>val.alpha && Board.whoseMove) 
-				{
-				val.beta = val.alpha;
-				val.currentPath = val.alphaval.beta(depth+1, breadth+1);
-				}
-			*/
 
 // ------------------------------------------------------------------------------------- //
 	
@@ -137,7 +137,7 @@ public static String listMoves(int breadth)
 				// ------------------ \\ Custom Evaluation // ------------------ \\
 				
 				// To motivate the engine to investigate moving pieces.
-				// This is not included in StratEval because it 
+				// This is not included in StratEval because it does not effect the position.
 				
 				int valTest = 0;
 				
@@ -146,24 +146,19 @@ public static String listMoves(int breadth)
 					valTest = StratEval.globalEval(Board.chessBoard); 
 					int r = Character.getNumericValue(move.charAt(0));
 					int c = Character.getNumericValue(move.charAt(1));
-					int j = 8*r + c; // The piece that is being moved
-						if(BB.pTakesB[j] && BB.piecesW[j]) // If it is attacked by a pawn
-							valTest += 50;
+					int j = 8*r + c; 				   // The piece that is being moved
+					if(BB.pTakesB[j] && BB.piecesW[j]) // If it is attacked by a pawn
+						valTest += 50;
 				}
-				
-				
 				if (!Board.whoseMove) // Black evaluation (WHITE TO MOVE)
 				{
 					valTest = StratEval.globalEval(Board.chessBoard); 
 					int r = Character.getNumericValue(move.charAt(0));
 					int c = Character.getNumericValue(move.charAt(1));
-					int j = 8*r + c; // The piece that is being moved
-					{
-						if(BB.pTakesW[j] && BB.piecesB[j]) // If it is attacked by a pawn
-							valTest -= 50;
-					}
+					int j = 8*r + c; 				   // The piece that is being moved
+					if(BB.pTakesW[j] && BB.piecesB[j]) // If it is attacked by a pawn
+						valTest -= 50;
 				}
-				
 				rateTemp.add(valTest);
 				Board.undoMove(list.substring(i, i + 5));
 			} catch (Exception e) {}

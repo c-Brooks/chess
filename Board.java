@@ -22,12 +22,12 @@ public class Board
 
 	public static String chessBoard[][] = {
 			{"r", "n", "b", "q", "k", "b", "n", "r"},
-			{"p", "p", "p", " ", " ", "p", "p", "p"},
+			{"p", "p", "p", "p", "p", "p", "p", "p"},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
 			{" ", " ", " ", " ", " ", " ", " ", " "},
-			{"P", "P", "P", " ", " ", " ", "P", "P"},
+			{"P", "P", "P", "P", "P", "P", "P", "P"},
 			{"R", "N", "B", "Q", "K", "B", "N", "R"}};
 
 	
@@ -191,29 +191,30 @@ try{
 		
 		if(!whoseMove) // White castling
 		{
-			if (Board.kCastlingW && " ".equals(Board.chessBoard[7][5])
-					&& " ".equals(Board.chessBoard[7][6])) {
+			BB.getPieces();
+			if (Board.kCastlingW && !(BB.piecesW[61] | BB.piecesB[61] | BB.controlB()[61])
+								 && !(BB.piecesW[62] | BB.piecesB[62] | BB.controlB()[62]))
 				move = move + 7 + 4 + 7 + 6 + " ";
-			}
-			if (Board.qCastlingW && " ".equals(Board.chessBoard[7][3])
-					&& " ".equals(Board.chessBoard[7][2]) && " ".equals(Board.chessBoard[7][1])) {
+			
+			if (Board.qCastlingW && !(BB.piecesW[59] | BB.piecesB[59] | BB.controlB()[59])
+								 && !(BB.piecesW[58] | BB.piecesB[58] | BB.controlB()[58])
+								 && !(BB.piecesW[57] | BB.piecesB[57] | BB.controlB()[57]))
 				move = move + 7 + 4 + 7 + 2 + " ";
-			}
 		}
 		if(whoseMove) // Black castling
 		{
-			if (kCastlingB && " ".equals(chessBoard[0][5])
-					&& " ".equals(chessBoard[0][6])) {
+			if (Board.kCastlingB && !(BB.piecesB[5] | BB.piecesB[5] | BB.controlW()[5])
+					 			 && !(BB.piecesB[6] | BB.piecesB[6] | BB.controlW()[6]))
 				move = move + 0 + 4 + 0 + 6 + " ";
-			}
-			if (Board.qCastlingB && " ".equals(Board.chessBoard[0][3])
-					&& " ".equals(Board.chessBoard[0][2]) && " ".equals(Board.chessBoard[0][1])) {
+		
+			if (Board.qCastlingW && !(BB.piecesW[1] | BB.piecesB[1] | BB.controlB()[1])
+								 && !(BB.piecesW[2] | BB.piecesB[2] | BB.controlB()[2])
+								 && !(BB.piecesW[3] | BB.piecesB[3] | BB.controlB()[3]))
 				move = move + 0 + 4 + 0 + 2 + " ";
-			}
 		}
+		
 	return move;
 	}
-	
 
     public static void undoMove(String move) {
 

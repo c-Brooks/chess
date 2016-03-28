@@ -107,7 +107,7 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 			try{
 			Board.recordMove(AI.bestPath.substring(0,5));
 			} catch(Exception x)
-			{ System.out.println("\n\n##############\n # CHECKMATE!! # \n##############\n\n"); }
+			{ System.out.println("\n\n ###############\n # CHECKMATE!! # \n ###############\n\n"); }
 			
 			
 			System.out.println("\n"+dragMove);

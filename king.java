@@ -1,8 +1,7 @@
 /*
- * moves determines how the king can move, as well as castling and castling rights
+ * moves determines how the king can move, as well as castling. Castling rights are in Board.
  * kingSafe determines if the king is in check (legal move)
- * position is stored as integer kingPos for speed 
- * 
+ * Position is stored as integer kingPos and kpTemp for speed 
  */
 
 public class King 
