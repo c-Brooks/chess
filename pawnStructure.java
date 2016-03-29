@@ -8,13 +8,14 @@
 public class PawnStructure {
 	
 
-	public static boolean isBackward(int i) { 
+	public static boolean isBackward(int i) 
+	{ 
 		int r = i / 8;
 		int c = i % 8;
 		boolean flag = true;
 
 		try{
-			if ("P".equals(Board.chessBoard[r][c]) && !"p".equals(Board.chessBoard[r-1][c]))
+			if(BB.pawnsW[i] && !"p".equals(Board.chessBoard[r-1][c]))
 				for (int j = 7; j >= r; j--)
 			if (!"P".equals(Board.chessBoard[j][c + 1]) && !"P".equals(Board.chessBoard[j][c - 1]))
 				flag = false;
@@ -40,7 +41,8 @@ public class PawnStructure {
 						spaceEvalW += 3 * (-(r - 7));
 					if (BB.pawnsW[i+1] || BB.pawnsW[i-1] && r < 6) // pawn duo
 						spaceEvalW += 6 * (-(r - 7));
-				
+					if(BB.center()[i])
+						spaceEvalW += 20;
 				} catch (Exception e) {}
 		}
 		return spaceEvalW;
@@ -57,6 +59,9 @@ public class PawnStructure {
 						spaceEvalB += 3 * r;
 					if ((BB.pawnsB[i+1] || BB.pawnsB[i-1]) && r > 2) // pawn duo
 						spaceEvalB += 6 * r;
+					if(BB.center()[i])
+						spaceEvalB += 20;
+					
 				} catch (Exception e) {}
 		}
 		return spaceEvalB;

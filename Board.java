@@ -203,11 +203,12 @@ try{
 		}
 		if(whoseMove) // Black castling
 		{
+			BB.getPieces();
 			if (Board.kCastlingB && !(BB.piecesB[5] | BB.piecesB[5] | BB.controlW()[5])
 					 			 && !(BB.piecesB[6] | BB.piecesB[6] | BB.controlW()[6]))
 				move = move + 0 + 4 + 0 + 6 + " ";
 		
-			if (Board.qCastlingW && !(BB.piecesW[1] | BB.piecesB[1] | BB.controlB()[1])
+			if (Board.qCastlingB && !(BB.piecesW[1] | BB.piecesB[1] | BB.controlB()[1])
 								 && !(BB.piecesW[2] | BB.piecesB[2] | BB.controlB()[2])
 								 && !(BB.piecesW[3] | BB.piecesB[3] | BB.controlB()[3]))
 				move = move + 0 + 4 + 0 + 2 + " ";

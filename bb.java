@@ -41,28 +41,33 @@ public class BB {
 
 
 	
-// BOARD: Board properties for evaluation  FIX TO ACCOMODATE BOOLEAN ARRAYS
+// BOARD: Board properties for evaluation
 	
-	/*
-	private static long empty        = 0L;  
-	private static long lightSquares = 0x5555555555555555L;
-	private static long darkSquares  = 0x2AAAAAAAAAAAAAAAL;
-	private static long aFile = 0x0101010101010101L;
-	private static long bFile = 0x0202020202020202L;
-	private static long cFile = 0x0404040404040404L;
-	private static long dFile = 0x0808080808080808L;
-	private static long eFile = 0x1010101010101010L;
-	private static long fFile = 0x2020202020202020L;
-	private static long gFile = 0x4040404040404040L;
-	private static long hFile = 0x8080808080808080L;
-	private static long center = 0x0000001818000000L;
-	*/
+	public static boolean[] center()
+		{
+		boolean center[] = new boolean[64];
+		center[27] = true; center[28] = true;
+		center[35] = true; center[36] = true;
+		return center;
+		}
+	
 
 	public static void getPieces()
 	{
-		boolean[] pieces = new boolean[64];
 		for (int i=0; i<64; i++)
 		{
+			piecesW[i] = false;
+			piecesB[i] = false;
+			
+			kings[i]   = false;
+			queens[i]  = false;	
+			rooks[i]   = false;
+			bishops[i] = false;
+			knights[i] = false;
+			pawnsW[i]  = false;
+			pawnsB[i]  = false;
+			
+						
 			switch (Board.chessBoard[i/8][i%8])
 			{
 case "K":	
@@ -129,20 +134,6 @@ case "p":
 		controlB[i] = bMovesB[i]|nMovesB[i]|rMovesB[i]|qMovesB[i]|kMovesB[i]|pTakesB[i]|kMovesB[i];
 		return controlB;
 	}
-	
-/*
-	public static long attackedW() // Does not count pawn attacks
-		{ return (controlB() & piecesW()); }
-	
-	public static long attackedB() // Does not count pawn attacks
-		{ return (controlW() & piecesB()); }
-	
-	public static long defendedW()
-		{ return (controlW() & piecesW()); }
-	
-	public static long defendedB()
-		{ return (controlW() & piecesB()); }
-*/
 	
 	
 	public static void clearBB() // Reset bitboards

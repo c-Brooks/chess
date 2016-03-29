@@ -114,6 +114,9 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 			
 			BB.refreshMoves();
 			printCntl();
+			
+			BB.getPieces();
+			BB.print(BB.piecesW);
 				
 			long finishTime = System.currentTimeMillis();
 

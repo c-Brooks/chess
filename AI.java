@@ -52,8 +52,6 @@ public class AI
 	 * Make one move and evaluate by calling alphaBeta recursively 
 	 * Alpha (white) is trying to maximize, while Beta (black) is trying to minimize 
 	 * Assuming black is CPU, select the lowest score of the end positions 
-	 * **Figure out how to prune 
-	 * ^LOOK THIS UP^
 	 */
 			
 		
