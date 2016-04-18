@@ -57,7 +57,7 @@ public class StratEval {
 		int eval=0;
 		
  		eval+=materialBalance(pos)+Activity.piecePlacement(pos)+PawnStructure.spaceW(pos)
- 		-PawnStructure.spaceB(pos)+PawnStructure.pawnCenter(pos);
+ 		-PawnStructure.spaceB(pos)+PawnStructure.pawnCenter(pos)+ Activity.development();
 
 		
 		for (int i=0; i<64; i++)

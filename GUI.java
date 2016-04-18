@@ -1,14 +1,14 @@
-/* 			Graphical User Interface
- * Takes care of graphics for board and pieces
- * Makes moves when pieces are dragged if the move is legal
- * Thoughts - implement 2-click moves?? squares would light up on 1st click?
- */
-
 
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 @SuppressWarnings("serial")
+
+/** 			Graphical User Interface
+ * Takes care of graphics for board and pieces
+ * Makes moves when pieces are dragged if the move is legal
+ * TODO: Implement 2-click moves?? squares would light up on 1st click?
+ **/
 
 public class GUI extends JPanel implements MouseListener, MouseMotionListener 
 {
@@ -77,11 +77,12 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 
 	public void mouseMoved(MouseEvent e){}
 	public void mousePressed(MouseEvent e){
-		if(e.getX()<(8*squareSize)&&e.getY()<(8*squareSize))
+		if(e.getX()<(8*squareSize)&&e.getY()<(8*squareSize)) // If cursor is on the board
 		mouseX=e.getX();
 		mouseY=e.getY();
 		repaint();
 	}
+	
 	public void mouseReleased(MouseEvent e){
 		if(e.getX()<(8*squareSize)&&e.getY()<(8*squareSize))
 		newMouseX=e.getX();
@@ -101,9 +102,10 @@ public class GUI extends JPanel implements MouseListener, MouseMotionListener
 									
 			long startTime = System.currentTimeMillis();
 			
-			
 			AI.reset();
 			AI.think(3, 3);
+			
+			
 			try{
 			Board.recordMove(AI.bestPath.substring(0,5));
 			} catch(Exception x)

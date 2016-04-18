@@ -49,6 +49,23 @@ public class BB {
 		center[35] = true; center[36] = true;
 		return center;
 		}
+	/*
+	public static boolean[] lightSq()
+	{
+		boolean ls[] = new boolean[64];
+		for (int i = 0; i < 32; i++)
+			ls[i*2] = true;
+		return ls;
+	}
+	
+	public static boolean[] darkSq()
+	{
+		boolean ds[] = new boolean[64];
+		for (int i = 0; i < 32; i++)
+			ds[i*2 + 1] = true;
+		return ds;
+	}
+		*/
 	
 
 	public static void getPieces()
@@ -69,52 +86,52 @@ public class BB {
 						
 			switch (Board.chessBoard[i/8][i%8])
 			{
-case "K":	
-	kings[i]   = true;
-	piecesW[i] = true;
-	break;
-case "k":	
-	kings[i]   = true;
-	piecesB[i] = true;
-	break;
-case "Q":	
-	queens[i]  = true;	
-	piecesW[i] = true;
-	break;
-case "q":	
-	queens[i]  = true;
-	piecesB[i] = true;
-	break;
-case "R":	
-	rooks[i]   = true;
-	piecesW[i] = true;
-	break;
-case "r":	
-	rooks[i]   = true;
-	piecesB[i] = true;
-	break;
-case "B":	
-	bishops[i] = true;
-	piecesW[i] = true;
-	break;
-case "b":	
-	bishops[i] = true;
-	piecesB[i] = true;
-	break;
-case "N":	
-	knights[i] = true;
-	piecesW[i] = true;
-	break;
-case "n":	
-	knights[i] = true;
-	piecesB[i] = true;
-	break;
-case "P":	
-	pawnsW[i]  = true;
-	break;
-case "p":	
-	pawnsB[i]  = true;
-	break;
+		case "K":	
+			kings[i]   = true;
+			piecesW[i] = true;
+			break;
+		case "k":	
+			kings[i]   = true;
+			piecesB[i] = true;
+			break;
+		case "Q":	
+			queens[i]  = true;	
+			piecesW[i] = true;
+			break;
+		case "q":	
+			queens[i]  = true;
+			piecesB[i] = true;
+			break;
+		case "R":	
+			rooks[i]   = true;
+			piecesW[i] = true;
+			break;
+		case "r":	
+			rooks[i]   = true;
+			piecesB[i] = true;
+			break;
+		case "B":	
+			bishops[i] = true;
+			piecesW[i] = true;
+			break;
+		case "b":	
+			bishops[i] = true;
+			piecesB[i] = true;
+			break;
+		case "N":	
+			knights[i] = true;
+			piecesW[i] = true;
+			break;
+		case "n":	
+			knights[i] = true;
+			piecesB[i] = true;
+			break;
+		case "P":	
+			pawnsW[i]  = true;
+			break;
+		case "p":	
+			pawnsB[i]  = true;
+			break;
 			}	
 		}
 	}
@@ -134,6 +151,24 @@ case "p":
 		return controlB;
 	}
 	
+	/*
+	public static boolean[] fileOf(int i) // Files are columns
+	{
+		boolean[] file = new boolean [64];
+		for (int j = i%8; j<64; j+=8)
+			file[j] = true;
+		return file;
+	}
+	
+	public static boolean[] rankOf(int i) // Ranks are rows
+	{
+		boolean[] rank = new boolean [64];
+		int k = (i/8)*8;
+		for (int j = k; j<k+8; j++)
+			rank[j] = true;
+		return rank;
+	}
+	*/
 	
 	public static void clearBB() // Reset bitboards
 	{
@@ -217,5 +252,45 @@ case "p":
 				System.out.println("  |"+(8-i/8));
 		}
 		System.out.println(" ________________\n a b c d e f g h ");
+	}
+	
+	static int valueOf(int i)
+	{
+		int value = 0;
+		switch (Board.chessBoard[i/8][i%8])
+		{
+case "Q":	
+	value = 1100;
+	break;
+case "q":	
+	value = -1100;
+	break;
+case "R":	
+	value = 550;
+	break;
+case "r":	
+	value = -550;
+	break;
+case "B":	
+	value = 340;
+	break;
+case "b":	
+	value = -340;
+	break;
+case "N":	
+	value = 320;
+	break;
+case "n":	
+	value = -320;
+	break;
+	
+case "P":	
+	value = 100;
+	break;
+case "p":	
+	value = -100;
+	break;
+		}
+		return value;
 	}
 }

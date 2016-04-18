@@ -1,12 +1,6 @@
 
-/*	    AI - This enables the engine to look ahead
- * 
- * It contains a branching algorithm known as Alpha-Beta
- * Implement Progressive Deepening (??)
- */
-
-//								IDEAS
 /*
+ *								TODO:
  * 		Prog Deepening - assign # depending on where in candMoves the move is
  * search for the inverse of the # (use candMoves.length()-#)
  * 
@@ -20,6 +14,15 @@
 
 import java.util.*;
 
+
+
+/**	    AI - This enables the engine to look ahead
+ * 
+ * It contains a branching algorithm known as Alpha-Beta.
+ * It calls itself recursively, making a desicion tree
+ * 		until a leaf node is reached.
+ **/
+
 public class AI 
 {		
 		static String currentPath = "";
@@ -27,7 +30,8 @@ public class AI
 		static int alpha = -1000000000;
 		static int beta  =  1000000000;
 		
-		public static void reset() // Reset each turn
+		/** Reset each turn **/
+		public static void reset()
 		{
 			currentPath = "";
 			bestPath = "";
@@ -35,6 +39,13 @@ public class AI
 			beta  =  1000000000;
 		}
 	
+		/**				Alpha-Beta Algorithm:
+		 * Get list of best (# = breadth) moves in order.  
+		 * Make moves and evaluate by calling think recursively until depth = 0.  
+		 * Alpha (white) is trying to maximize, while Beta (black) is trying to minimize.   
+		 * Assuming black is CPU, select the lowest score of the end positions.  
+		 **/
+		
 	public static int think(int depth, int breadth)
 	{
 					// FOR TESTING //
@@ -45,26 +56,22 @@ public class AI
 		System.out.println("#######################\n\n");
 
 // ------------------------------------------------------------------------------------- //
-
-
-	/*				Alpha-Beta Algorithm:
-	 * Get list of best (# = breadth) moves in order 
-	 * Make one move and evaluate by calling alphaBeta recursively 
-	 * Alpha (white) is trying to maximize, while Beta (black) is trying to minimize 
-	 * Assuming black is CPU, select the lowest score of the end positions 
-	 */
-			
 		
 		String candMoves = listMoves(breadth);
 
+		if("".equals(candMoves) && !Board.whoseMove) // White is checkmated
+			return -1000000000;
+		if("".equals(candMoves) && Board.whoseMove)  // Black is checkmated
+			return  1000000000;
+		
 		
 		// If it's a leaf node
 	if (depth == 0 || breadth <= 1) 
 	{
 		int endVal = StratEval.globalEval(Board.chessBoard);
 
-		System.out.println("\nEndVal:"+endVal+"\nCURRENT PATH:  "+currentPath+"\n");
-		System.out.println("\n                   BEST PATH:    "+bestPath+"\n");
+		System.out.println("\nEndVal:"+endVal+"\nCURRENT PATH:  " + currentPath + "\n");
+		System.out.println("\n                   BEST PATH:    "  + bestPath    + "\n");
 		System.out.println("");
 	
 		return endVal;
@@ -82,13 +89,22 @@ public class AI
 			currentPath += candMoves.substring(i, i+5);
 			valTemp = think(depth-1,breadth-1);
 			Board.undoMove(candMoves.substring(i, i+5)); System.out.println("UNDO:"+candMoves.substring(i, i+5));
-		/*	
-			// Alpha-Beta pruning
-			if(Board.whoseMove && valTemp > beta)
-				{ System.out.println("Alpha > Beta"); beta = 1000000000; return valTemp; }
-			if(!Board.whoseMove && valTemp < alpha)
-				{ System.out.println("Beta < Alpha"); alpha = -1000000000; return valTemp; }
-			*/
+		
+		// Alpha-Beta pruning - IT WORKS NOW
+			
+		if(Board.whoseMove && valTemp > beta)
+			{
+			System.out.println("Alpha > Beta"); beta = 1000000000; 
+			currentPath = currentPath.replaceAll(candMoves.substring(i, i+5), ""); // Update currentPath
+			return valTemp; 
+			}
+		if(!Board.whoseMove && valTemp < alpha)
+			{ 
+			System.out.println("Beta < Alpha"); alpha = -1000000000; 
+			currentPath = currentPath.replaceAll(candMoves.substring(i, i+5), ""); // Update currentPath
+			return valTemp; 
+			}
+		
 		if(!Board.whoseMove && valTemp > value)
 			alpha = value = valTemp; 
 		if(Board.whoseMove && valTemp < value)
@@ -99,17 +115,13 @@ public class AI
 	}
 	
 	// Once all candidate moves are analyzed
-	if(!Board.whoseMove)
-	{ return value;}
 	return value;
 	}
 
 // ------------------------------------------------------------------------------------- //
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 public static String listMoves(int breadth)
-	{
-		
+	{	
 		/*					Sorting:
 		 * Each move is rated and sorted from best to worst
 		 * The top moves (# = breadth) are considered the candMoves
@@ -120,7 +132,7 @@ public static String listMoves(int breadth)
 		int length = list.length();
 		String temp = "";
 		String candMoves = "";
-		LinkedList rateTemp = new LinkedList();
+		LinkedList<Integer> rateTemp = new LinkedList<Integer>();
 		
 		int maxRateW = -1000000000;
 		int maxRateB =  1000000000;
@@ -146,7 +158,9 @@ public static String listMoves(int breadth)
 					int c = Character.getNumericValue(move.charAt(1));
 					int j = 8*r + c; 				   // The piece that is being moved
 					if(BB.pTakesB[j] && BB.piecesW[j]) // If it is attacked by a pawn
-						valTest += 50;
+						valTest += (BB.valueOf(j)/2);
+					if (King.kingSafeB()) // Examine checks
+						valTest += 100;
 				}
 				if (!Board.whoseMove) // Black evaluation (WHITE TO MOVE)
 				{
@@ -155,14 +169,18 @@ public static String listMoves(int breadth)
 					int c = Character.getNumericValue(move.charAt(1));
 					int j = 8*r + c; 				   // The piece that is being moved
 					if(BB.pTakesW[j] && BB.piecesB[j]) // If it is attacked by a pawn
-						valTest -= 50;
+						valTest += (BB.valueOf(j)/2);
+					if (King.kingSafeW()) // Examine checks
+						valTest -= 100;
 				}
 				rateTemp.add(valTest);
 				Board.undoMove(list.substring(i, i + 5));
 			} catch (Exception e) {}
 		}
 		if (length/5 < breadth) // Else it will try to evaluate moves that don't exist
-			breadth = length/5;
+			{ breadth = length/5; } // depth++ ?
+		
+		// SORTING //
 		
 		for (int j = 0; j < breadth; j++) {
 			Object rate = 0;
@@ -202,5 +220,42 @@ public static String listMoves(int breadth)
 		}	
 		System.out.println("CANDIDATE MOVES:  "+candMoves);
 		return candMoves;
+	}
+	
+	
+	
+	/** -- QuickSort - A faster algorithm to sort candidate moves -- **/
+	// TODO: Make it deal with ratings as well as moves
+	
+	
+	LinkedList<Integer> quickSort(LinkedList<Integer> arr, int left, int right) {
+	     int index = partition(arr, left, right);
+	     if (left < index - 1)
+	           quickSort(arr, left, index - 1);
+	     if (index < right)
+	           quickSort(arr, index, right);
+	     return arr;
+	}
+
+	int partition(LinkedList<Integer> arr, int left, int right)
+	{
+	      int i = left, j = right;
+	      int tmp;
+	      int pivot = (int) arr.get((left + right) / 2);
+	     
+	      while (i <= j) {
+	            while ((int)arr.get(i) < pivot)
+	                  i++;
+	            while ((int)arr.get(j) > pivot)
+	                  j--;
+	            if (i <= j) {
+	                  tmp = (int)arr.get(i);
+	                  arr.set(i, arr.get(j));
+	                  arr.set(j, tmp);
+	                  i++;
+	                  j--;
+	            }
+	      };   
+	      return i;
 	}
 }
