@@ -11,6 +11,8 @@ public class KingSafety {
 		int r = King.kingPosW / 8, c = King.kingPosW % 8;
 		int eval = 0;
 
+		if(true /* moveCount / material count */)
+			if(r == 3 || r == 4  || r == 5) eval -= 25;
 		if (!Board.kCastlingW) {
 			if (BB.pawnsW[(r - 1)*8+c])// pawn in front of king
 				eval += 10;
@@ -40,12 +42,17 @@ public class KingSafety {
 					}
 				}
 			}
+		if (BB.controlB()[13]) eval+=20;
 		return eval;
 	}
 	public static int kingSafetyB(String[][] pos) {
 		int r = King.kingPosB / 8, c = King.kingPosB % 8;
 		int eval = 0;
 
+
+		if(true /* moveCount / material count */)
+			if(r == 3 || r == 4  || r == 5) eval -= 25;
+		
 		if (!Board.kCastlingB) {
 			if (BB.pawnsB[(r + 1)*8+c]) // pawn in front of king
 				eval += 10;
@@ -70,6 +77,7 @@ public class KingSafety {
 				eval-=5;
 			}catch (Exception e){}
 		}
+		if(BB.controlW()[53]) eval += 20;
 		return eval;
 	}
 }

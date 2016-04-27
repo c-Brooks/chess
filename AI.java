@@ -30,6 +30,11 @@ public class AI
 		static int alpha = -1000000000;
 		static int beta  =  1000000000;
 		
+	//	static LinkedList<Integer> rateTemp = new LinkedList<Integer>();
+
+		
+		static int lastRate = 0;    // Rating jumps mean eval ended on a capture -> more depth, breadth
+		
 		/** Reset each turn **/
 		public static void reset()
 		{
@@ -90,7 +95,7 @@ public class AI
 			valTemp = think(depth-1,breadth-1);
 			Board.undoMove(candMoves.substring(i, i+5)); System.out.println("UNDO:"+candMoves.substring(i, i+5));
 		
-		// Alpha-Beta pruning - IT WORKS NOW
+		// Alpha-Beta pruning
 			
 		if(Board.whoseMove && valTemp > beta)
 			{
@@ -132,11 +137,12 @@ public static String listMoves(int breadth)
 		int length = list.length();
 		String temp = "";
 		String candMoves = "";
-		LinkedList<Integer> rateTemp = new LinkedList<Integer>();
 		
 		int maxRateW = -1000000000;
 		int maxRateB =  1000000000;
 		
+		LinkedList<Integer> rateTemp = new LinkedList<Integer>();
+
 		
 		for (int i = 0; i < length; i += 5) // go through every move substring and rate
 		{
